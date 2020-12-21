@@ -16,11 +16,6 @@
 
         public HttpResponse All()
         {
-            if (!this.IsUserSignedIn())
-            {
-                return this.Redirect("/");
-            }
-
             var model = this.repositoriesService.GetAll();
 
             return this.View(model);
@@ -30,7 +25,7 @@
         {
             if (!this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Users/Login");
             }
 
             return this.View();
@@ -41,7 +36,7 @@
         {
             if (!this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Users/Login");
             }
 
             if (string.IsNullOrEmpty(input.Name)

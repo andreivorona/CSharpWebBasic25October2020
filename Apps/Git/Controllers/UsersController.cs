@@ -17,12 +17,22 @@
 
         public HttpResponse Login()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Repositories/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Login(LoginInputModel input)
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Repositories/All");
+            }
+
             var userId = usersService.GetUserId(input.Username, input.Password);
 
             if (userId == null)
@@ -37,12 +47,22 @@
 
         public HttpResponse Register()
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Repositories/All");
+            }
+
             return this.View();
         }
 
         [HttpPost]
         public HttpResponse Register(RegisterInputModel input)
         {
+            if (this.IsUserSignedIn())
+            {
+                return this.Redirect("/Repositories/All");
+            }
+
             if (string.IsNullOrEmpty(input.Username)
                 || input.Username.Length < 5
                 || input.Username.Length > 20)
@@ -77,7 +97,7 @@
         {
             if (!this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Users/Login");
             }
 
             this.SignOut();
